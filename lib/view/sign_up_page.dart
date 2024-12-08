@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
             children: [
               Image.asset(
                 'assets/icons/WorldReaderLogo.png',
-                height: 200,
+                height: 150,
               ),
               const SizedBox(height: 20),
               const Align(
