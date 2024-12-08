@@ -79,7 +79,45 @@ class _LoginPageState extends State<LoginPage> {
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0))),
-                  child: const Text("Log in"))
+                  child: const Text("Log in")),
+              const SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Log in with  ",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Image.asset(
+                    "assets/icons/login_with_google_icon.png",
+                    height: 19,
+                  ),
+                  const Padding(padding: EdgeInsets.all(3)),
+                  Image.asset(
+                    "assets/icons/login_with_facebook_icon.png",
+                    height: 19,
+                  ),
+                  const Padding(padding: EdgeInsets.all(3)),
+                  Image.asset(
+                    "assets/icons/login_with_github_icon.png",
+                    height: 19,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Create new account? ",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    "Sign up",
+                    style: TextStyle(color: Colors.blue),
+                  )
+                ],
+              )
             ],
           ))
         ],
