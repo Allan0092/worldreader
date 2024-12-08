@@ -100,12 +100,49 @@ class _SignUpPageState extends State<SignUpPage> {
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0))),
-                  child: const Text("Submit"))
+                  child: const Text("Submit")),
+              const SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Log in with  ",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Image.asset(
+                    "assets/icons/login_with_google_icon.png",
+                    height: 19,
+                  ),
+                  const Padding(padding: EdgeInsets.all(3)),
+                  Image.asset(
+                    "assets/icons/login_with_facebook_icon.png",
+                    height: 19,
+                  ),
+                  const Padding(padding: EdgeInsets.all(3)),
+                  Image.asset(
+                    "assets/icons/login_with_github_icon.png",
+                    height: 19,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account? ",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    "Log in",
+                    style: TextStyle(color: Colors.blue),
+                  )
+                ],
+              )
             ],
           ))
         ],
       ),
     );
-    ;
   }
 }
