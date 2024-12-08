@@ -39,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
                     filled: true,
                     fillColor: Colors.white,
                     hintStyle: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontSize: 15,
                         color: const Color(0xFF36454F).withOpacity(0.5)),
                     hintText: 'example@email.com',
                     border: OutlineInputBorder(
