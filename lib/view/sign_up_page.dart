@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worldreader/view/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -128,16 +129,24 @@ class _SignUpPageState extends State<SignUpPage> {
                     ],
                   ),
                   const SizedBox(height: 30),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Already have an account? ",
                         style: TextStyle(color: Colors.white),
                       ),
-                      Text(
-                        "Log in",
-                        style: TextStyle(color: Colors.blue),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                        },
+                        child: const Text(
+                          "Log in",
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       )
                     ],
                   )
