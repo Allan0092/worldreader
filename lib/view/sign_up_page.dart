@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worldreader/common/show_bottom_snack_bar.dart';
 import 'package:worldreader/view/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -96,7 +97,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showBottomSnackBar(
+                            context: context, message: "Created Successfully");
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
                               const Color(0xFF009CDA), // Blue background
@@ -138,10 +142,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()));
+                          Navigator.pop(context);
+                          //   Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) => const LoginPage()));
                         },
                         child: const Text(
                           "Log in",
