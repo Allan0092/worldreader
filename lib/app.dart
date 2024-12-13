@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldreader/view/login_page.dart';
-import 'package:worldreader/view/sign_up_page.dart';
+import 'package:worldreader/view/on_boarding_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,7 +8,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      debugShowMaterialGrid: false,
+      home: OnBoardingScreen(),
       // home: SignUpPage(),
     );
   }
