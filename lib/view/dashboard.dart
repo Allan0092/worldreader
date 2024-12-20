@@ -17,14 +17,37 @@ class _DashboardState extends State<Dashboard> {
     const LibraryPage(),
     const StorePage(),
   ];
+
+  void onBottomNavTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        backgroundColor: Colors.black,
+        title: const Row(
+          textDirection: TextDirection.rtl,
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.eMLmzmhAqRMxUZad3zXE5QHaHa%26pid%3DApi&f=1&ipt=4d684bca79e7e51c84bd7acf813a524648301e4918c79fd8cbe2652740929eea&ipo=images"),
+            ),
+          ],
+        ),
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(2.0),
+            child: Container(
+              color: Colors.white,
+              height: 1.0,
+            )),
       ),
-      body: const Column(
-        children: [Text("Dashboard")],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: lstBottomScreen,
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
@@ -34,11 +57,7 @@ class _DashboardState extends State<Dashboard> {
           BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Store'),
         ],
         currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
+        onTap: onBottomNavTapped,
       ),
     );
   }
