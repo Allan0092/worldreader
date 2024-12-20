@@ -15,7 +15,8 @@ class _LibraryPageState extends State<LibraryPage> {
         children: [
           Text(
               style: TextStyle(fontSize: 48, fontFamily: "Fondamento Regular"),
-              "Library")
+              "Library"),
+          Text("nothing to read here...")
         ],
       ),
     );

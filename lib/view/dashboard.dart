@@ -11,7 +11,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   List<Widget> lstBottomScreen = [
     const ExplorePage(),
     const LibraryPage(),
@@ -50,11 +50,32 @@ class _DashboardState extends State<Dashboard> {
         children: lstBottomScreen,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF222222),
+        selectedItemColor: Colors.blue,
+        selectedIconTheme: const IconThemeData(
+          color: Colors.blue,
+        ),
+        unselectedItemColor: Colors.white,
+        selectedFontSize: 16,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.library_books), label: 'Library'),
-          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Store'),
+              icon: Icon(
+                Icons.explore,
+                color: Colors.white,
+              ),
+              label: 'Explore'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.folder_copy_rounded,
+                color: Colors.white,
+              ),
+              label: 'Library'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.store,
+                color: Colors.white,
+              ),
+              label: 'Store'),
         ],
         currentIndex: _selectedIndex,
         onTap: onBottomNavTapped,
