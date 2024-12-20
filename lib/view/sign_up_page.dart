@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
-import 'package:worldreader/view/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -137,15 +136,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (myKey.currentState!.validate()) {
                               showBottomSnackBar(
                                   context: context,
-                                  message: "Created Successfully");
+                                  message: "Account Created Successfully",
+                                  durationSeconds: 2);
+                              Navigator.pushReplacementNamed(context, '/login');
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color(0xFF009CDA), // Blue background
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0))),
                           child: const Text("Submit")),
                       const SizedBox(height: 40),
                       Row(
@@ -182,10 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           GestureDetector(
                             onTap: () {
                               // Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginPage()));
+                              Navigator.pushReplacementNamed(context, '/login');
                             },
                             child: const Text(
                               "Log in",

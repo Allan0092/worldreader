@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
-import 'package:worldreader/view/library_page.dart';
-import 'package:worldreader/view/sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -109,11 +107,8 @@ class _LoginPageState extends State<LoginPage> {
                             if (myKey.currentState!.validate()) {
                               showBottomSnackBar(
                                   context: context, message: "Login Success");
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LibraryPage()),
-                              );
+                              Navigator.pushReplacementNamed(
+                                  context, '/dashboard');
                             } else {
                               showBottomSnackBar(
                                   context: context,
@@ -121,12 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                                   color: Colors.red);
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color(0xFF009CDA), // Blue background
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0))),
                           child: const Text("Log in")),
                       const SizedBox(height: 40),
                       Row(
@@ -162,11 +151,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignUpPage()));
+                              Navigator.pushReplacementNamed(
+                                  context, '/signup');
                             },
                             child: const Text(
                               "Sign up",
