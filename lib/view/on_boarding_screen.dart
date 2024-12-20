@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:worldreader/view/login_page.dart';
-import 'package:worldreader/view/sign_up_page.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -43,10 +41,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             right: 20,
             child: TextButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
+                Navigator.pushReplacementNamed(context, '/login');
               },
               child: const Text(
                 'Skip',
@@ -61,10 +56,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignUpPage()),
-                  );
+                  Navigator.pushReplacementNamed(context, '/signup');
                 },
                 style: ElevatedButton.styleFrom(
                   padding:

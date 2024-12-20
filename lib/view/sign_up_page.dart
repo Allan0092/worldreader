@@ -49,6 +49,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
+                            focusColor: Colors.blue,
+                            hoverColor: Colors.blue,
                             filled: true,
                             fillColor: Colors.white,
                             hintStyle: TextStyle(
@@ -60,6 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         keyboardType: TextInputType.emailAddress,
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "please enter an email";
@@ -89,6 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         obscureText: true,
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "please enter a password";
@@ -118,6 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         obscureText: true,
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "please repeat the password";

@@ -50,6 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
+                            errorStyle:
+                                const TextStyle(fontFamily: "Montserrat Bold"),
                             hintStyle: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontSize: 15,
@@ -58,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: 'example@email.com',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10))),
+                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -83,6 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
+                            errorStyle:
+                                const TextStyle(fontFamily: "Montserrat Bold"),
                             hintStyle: TextStyle(
                                 color:
                                     const Color(0xFF36454F).withOpacity(0.5)),
@@ -90,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         obscureText: true,
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "enter a password";
