@@ -10,6 +10,24 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController();
 
+  void _nextPage() {
+    if (_pageController.page! < 2) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _previousPage() {
+    if (_pageController.page! > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +59,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             right: 20,
             child: TextButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.pushReplacementNamed(context, '/dashboard');
               },
               child: const Text(
                 'Skip',
@@ -50,7 +68,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
           ),
           Positioned(
-            bottom: 40,
+            bottom: 110,
+            left: 20,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.blue),
+              onPressed: _previousPage,
+            ),
+          ),
+          Positioned(
+            bottom: 110,
+            right: 20,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_forward, color: Colors.blue),
+              onPressed: _nextPage,
+            ),
+          ),
+          Positioned(
+            bottom: 110,
             left: 0,
             right: 0,
             child: Center(
@@ -67,10 +101,33 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: const Text('Get Started'),
+                child: const Text('Join us'),
               ),
             ),
           ),
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/dashboard');
+                },
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  backgroundColor:
+                      const Color.fromARGB(255, 0, 95, 132), // Blue background
+                  foregroundColor: Colors.white, // White text
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: const Text('Skip'),
+              ),
+            ),
+          )
         ],
       ),
     );
