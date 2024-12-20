@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worldreader/core/app_theme/app_theme.dart';
 import 'package:worldreader/view/on_boarding_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -6,10 +7,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
-      home: OnBoardingScreen(),
+      theme: getApplicationTheme(),
+      home: const OnBoardingScreen(),
       // home: SignUpPage(),
     );
   }

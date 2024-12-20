@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldreader/common/show_bottom_snack_bar.dart';
+import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
 import 'package:worldreader/view/library_page.dart';
 import 'package:worldreader/view/sign_up_page.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldreader/common/show_bottom_snack_bar.dart';
+import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
 import 'package:worldreader/view/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -122,8 +122,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "please repeat the password";
-                          } else if (value !=
-                              passwordController.value.toString()) {
+                          } else if (value.toString() !=
+                              passwordController.text.toString()) {
                             return "passwords does not match";
                           }
                           return null;
