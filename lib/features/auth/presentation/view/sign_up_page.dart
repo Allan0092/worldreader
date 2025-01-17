@@ -9,6 +9,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final firstNameController = TextEditingController(text: "");
+  final lastNameController = TextEditingController(text: "");
   final emailController = TextEditingController(text: "");
   final passwordController = TextEditingController(text: "");
   final confirmPasswordController = TextEditingController(text: "");
@@ -37,6 +39,66 @@ class _SignUpPageState extends State<SignUpPage> {
                       Image.asset(
                         'assets/icons/WorldReaderLogo.png',
                         height: 150,
+                      ),
+                      const SizedBox(height: 20),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "First Name",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: firstNameController,
+                        decoration: InputDecoration(
+                          focusColor: Colors.blue,
+                          hoverColor: Colors.blue,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 15,
+                            color: const Color(0x0ff3645f).withOpacity(0.5),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "please enter your first name";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Last Name",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: lastNameController,
+                        decoration: InputDecoration(
+                          focusColor: Colors.blue,
+                          hoverColor: Colors.blue,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 15,
+                            color: const Color(0x0ff3645f).withOpacity(0.5),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "please enter your last name";
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 20),
                       const Align(
