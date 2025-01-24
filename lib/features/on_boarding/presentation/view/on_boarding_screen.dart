@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldreader/features/auth/presentation/view/register_view.dart';
+import 'package:worldreader/features/auth/presentation/view_model/login/login_bloc.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
+class OnBoardingScreen extends StatelessWidget {
+  OnBoardingScreen({super.key});
 
-  @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
-}
-
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController();
 
   void _nextPage() {
@@ -90,7 +88,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/signup');
+                  // Navigator.pushReplacementNamed(context, '/signup');
+                  context.read<LoginBloc>().add(NavigateRegisterScreenEvent(
+                      context: context, destination: const RegisterView()));
                 },
                 style: ElevatedButton.styleFrom(
                   padding:
