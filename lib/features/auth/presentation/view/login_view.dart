@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
+import 'package:worldreader/features/auth/presentation/view/register_view.dart';
+import 'package:worldreader/features/auth/presentation/view_model/login/login_bloc.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginViewState extends State<LoginView> {
   final emailController = TextEditingController(text: "");
   final passwordController = TextEditingController(text: "");
   final myKey = GlobalKey<FormState>();
@@ -156,9 +159,14 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(color: Colors.white),
                           ),
                           GestureDetector(
+                            key: const ValueKey('registerButton'),
                             onTap: () {
-                              Navigator.pushReplacementNamed(
-                                  context, '/signup');
+                              context
+                                  .read<LoginBloc>()
+                                  .add(NavigateRegisterScreenEvent(
+                                    context: context,
+                                    destination: const RegisterView(),
+                                  ));
                             },
                             child: const Text(
                               "Sign up",
