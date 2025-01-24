@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldreader/app/di/di.dart';
 import 'package:worldreader/core/app_theme/app_theme.dart';
-import 'package:worldreader/features/auth/presentation/view/login_page.dart';
-import 'package:worldreader/features/auth/presentation/view/sign_up_page.dart';
-import 'package:worldreader/features/home/presentation/view/dashboard.dart';
-import 'package:worldreader/features/splash/presentation/view/on_boarding_screen.dart';
+import 'package:worldreader/features/splash/presentation/view/splash_view.dart';
+import 'package:worldreader/features/splash/presentation/view_model/splash_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,16 +12,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'WorldReader',
       debugShowMaterialGrid: false,
       theme: getApplicationTheme(),
       // home: const OnBoardingScreen(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const OnBoardingScreen(),
-        '/login': (context) => const LoginPage(),
-        '/signup': (context) => const SignUpPage(),
-        '/dashboard': (context) => const Dashboard(),
-      },
+      home: BlocProvider.value(
+        value: getIt<SplashCubit>(),
+        child: const SplashView(),
+      ),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const OnBoardingScreen(),
+      //   '/login': (context) => const LoginPage(),
+      //   '/signup': (context) => const SignUpPage(),
+      //   '/dashboard': (context) => const Dashboard(),
+      // },
     );
   }
 }
