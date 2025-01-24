@@ -36,10 +36,11 @@ class RegisterUseCase implements UsecaseWithParams<void, RegisterUserParams> {
   @override
   Future<Either<Failure, void>> call(RegisterUserParams params) {
     final authEntity = AuthEntity(
-        fName: params.firstName,
-        lName: params.lastName,
-        email: params.email,
-        password: params.password);
+      fName: params.firstName,
+      lName: params.lastName,
+      email: params.email,
+      password: params.password,
+    );
 
     return repository.registerUser(authEntity);
   }
