@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/features/auth/presentation/view_model/register/register_bloc.dart';
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+class RegisterView extends StatelessWidget {
+  RegisterView({super.key});
 
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
   final firstNameController = TextEditingController(text: "");
+
   final lastNameController = TextEditingController(text: "");
+
   final emailController = TextEditingController(text: "");
+
   final passwordController = TextEditingController(text: "");
+
   final confirmPasswordController = TextEditingController(text: "");
+
   final myKey = GlobalKey<FormState>();
 
   @override
@@ -209,13 +209,15 @@ class _RegisterViewState extends State<RegisterView> {
                               //     message: "Account Created Successfully",
                               //     durationSeconds: 2);
                               // Navigator.pushReplacementNamed(context, '/login');
-                              context.read<RegisterBloc>().add(RegisterUser(
-                                    context: context,
-                                    fName: firstNameController.text,
-                                    lName: lastNameController.text,
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  ));
+                              context.read<RegisterBloc>().add(
+                                    RegisterUser(
+                                      context: context,
+                                      fName: firstNameController.text,
+                                      lName: lastNameController.text,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ),
+                                  );
                             }
                           },
                           child: const Text("Submit")),

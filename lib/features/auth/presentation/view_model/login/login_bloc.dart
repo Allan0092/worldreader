@@ -19,34 +19,45 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   })  : _loginUseCase = loginUseCase,
         _registerBloc = registerBloc,
         super(LoginState.initial()) {
-    on<NavigateRegisterScreenEvent>((event, emit) {
-      Navigator.push(
-        event.context,
-        MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [BlocProvider.value(value: _registerBloc)],
-            child: event.destination,
+    on<NavigateRegisterScreenEvent>(
+      (event, emit) {
+        Navigator.push(
+          event.context,
+          MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+              providers: [BlocProvider.value(value: _registerBloc)],
+              child: event.destination,
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
 
-    on<LoginUserEvent>((event, emit) async {
-      emit(state.copyWith(isLoading: true));
-      final result = await _loginUseCase(
-          LoginParams(email: event.email, password: event.password));
+    on<LoginUserEvent>(
+      (event, emit) async {
+        emit(state.copyWith(isLoading: true));
+        final result = await _loginUseCase(
+            LoginParams(email: event.email, password: event.password));
 
-      result.fold((failure) {
-        emit(state.copyWith(isLoading: false, isSuccess: false));
-        showBottomSnackBar(
-            context: event.context, message: "Invalid email or password");
-      }, (token) {
-        emit(state.copyWith(isLoading: false, isSuccess: true));
-        add(NavigateRegisterScreenEvent(
-          context: event.context,
-          destination: const Dashboard(),
-        ));
-      });
-    });
+        result.fold(
+          (failure) {
+            emit(state.copyWith(isLoading: false, isSuccess: false));
+            showBottomSnackBar(
+                context: event.context,
+                message: "Invalid email or password",
+                color: Colors.red);
+          },
+          (token) {
+            emit(state.copyWith(isLoading: false, isSuccess: true));
+            add(
+              NavigateRegisterScreenEvent(
+                context: event.context,
+                destination: const Dashboard(),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

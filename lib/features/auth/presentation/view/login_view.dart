@@ -4,16 +4,13 @@ import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
 import 'package:worldreader/features/auth/presentation/view/register_view.dart';
 import 'package:worldreader/features/auth/presentation/view_model/login/login_bloc.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class LoginView extends StatelessWidget {
+  LoginView({super.key});
 
-  @override
-  State<LoginView> createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
   final emailController = TextEditingController(text: "");
+
   final passwordController = TextEditingController(text: "");
+
   final myKey = GlobalKey<FormState>();
 
   @override
@@ -68,10 +65,9 @@ class _LoginViewState extends State<LoginView> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "enter an email";
-                          } else if (value == "admin@email.com") {
-                            return null;
                           }
-                          return "email not registered";
+                          // return "email not registered";
+                          return null;
                         },
                       ),
                       const SizedBox(
@@ -102,10 +98,9 @@ class _LoginViewState extends State<LoginView> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "enter a password";
-                          } else if (value == "admin") {
-                            return null; // correct creds
                           }
-                          return "incorrect password";
+                          // return "incorrect password";
+                          return null;
                         },
                       ),
                       const SizedBox(
@@ -114,10 +109,17 @@ class _LoginViewState extends State<LoginView> {
                       ElevatedButton(
                           onPressed: () {
                             if (myKey.currentState!.validate()) {
-                              showBottomSnackBar(
-                                  context: context, message: "Login Success");
-                              Navigator.pushReplacementNamed(
-                                  context, '/dashboard');
+                              // showBottomSnackBar(
+                              //     context: context, message: "Login Success");
+                              // Navigator.pushReplacementNamed(
+                              //     context, '/dashboard');
+                              context.read<LoginBloc>().add(
+                                    LoginUserEvent(
+                                      context: context,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ),
+                                  );
                             } else {
                               showBottomSnackBar(
                                   context: context,
@@ -165,7 +167,7 @@ class _LoginViewState extends State<LoginView> {
                                   .read<LoginBloc>()
                                   .add(NavigateRegisterScreenEvent(
                                     context: context,
-                                    destination: const RegisterView(),
+                                    destination: RegisterView(),
                                   ));
                             },
                             child: const Text(

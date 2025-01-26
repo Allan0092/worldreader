@@ -24,9 +24,9 @@ class AuthLocalDataSource implements IAuthDataSource {
   }
 
   @override
-  Future<String> loginStudent(String username, String password) async {
+  Future<String> loginUser(String email, String password) async {
     try {
-      await _hiveService.login(username, password);
+      await _hiveService.login(email, password);
       return Future.value("Success");
     } catch (e) {
       return Future.error(e);
@@ -34,10 +34,10 @@ class AuthLocalDataSource implements IAuthDataSource {
   }
 
   @override
-  Future<void> registerStudent(AuthEntity student) async {
+  Future<void> registerUser(AuthEntity user) async {
     try {
       // Convert AuthEntity to AuthHiveModel
-      final authHiveModel = AuthHiveModel.fromEntity(student);
+      final authHiveModel = AuthHiveModel.fromEntity(user);
 
       await _hiveService.register(authHiveModel);
       return Future.value();

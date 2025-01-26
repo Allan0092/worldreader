@@ -5,7 +5,7 @@ import 'package:worldreader/core/error/failure.dart';
 import 'package:worldreader/features/auth/domain/entity/auth_entity.dart';
 
 abstract interface class IAuthRepository {
-  Future<Either<Failure, void>> registerUser(AuthEntity student);
+  Future<Either<Failure, void>> registerUser(AuthEntity user);
 
   Future<Either<Failure, String>> loginUser(String email, String password);
 

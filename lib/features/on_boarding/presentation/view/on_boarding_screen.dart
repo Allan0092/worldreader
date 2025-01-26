@@ -95,9 +95,9 @@ class OnBoardingScreen extends StatelessWidget {
                 onPressed: () {
                   // Navigator.pushReplacementNamed(context, '/signup');
                   context.read<OnBoardingScreenBloc>().add(
-                        NavigateLoginScreenEvent(
+                        NavigateRegisterScreenEvent(
                           context: context,
-                          destination: const RegisterView(),
+                          destination: RegisterView(),
                         ),
                       );
                 },
@@ -125,7 +125,7 @@ class OnBoardingScreen extends StatelessWidget {
                   context.read<OnBoardingScreenBloc>().add(
                         NavigateLoginScreenEvent(
                           context: context,
-                          destination: const LoginView(),
+                          destination: LoginView(),
                         ),
                       );
                 },
