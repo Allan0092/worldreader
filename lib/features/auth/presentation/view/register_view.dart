@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldreader/features/auth/presentation/view_model/register/register_bloc.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class RegisterView extends StatelessWidget {
+  RegisterView({super.key});
 
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
+  final firstNameController = TextEditingController(text: "");
 
-class _SignUpPageState extends State<SignUpPage> {
+  final lastNameController = TextEditingController(text: "");
+
   final emailController = TextEditingController(text: "");
+
   final passwordController = TextEditingController(text: "");
+
   final confirmPasswordController = TextEditingController(text: "");
+
   final myKey = GlobalKey<FormState>();
 
   @override
@@ -37,6 +40,68 @@ class _SignUpPageState extends State<SignUpPage> {
                       Image.asset(
                         'assets/icons/WorldReaderLogo.png',
                         height: 150,
+                      ),
+                      const SizedBox(height: 20),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "First Name",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: firstNameController,
+                        decoration: InputDecoration(
+                          focusColor: Colors.blue,
+                          hoverColor: Colors.blue,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 15,
+                            color: const Color(0x0ff3645f).withOpacity(0.5),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "please enter your first name";
+                          }
+                          return null;
+                        },
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      const SizedBox(height: 20),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Last Name",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: lastNameController,
+                        decoration: InputDecoration(
+                          focusColor: Colors.blue,
+                          hoverColor: Colors.blue,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 15,
+                            color: const Color(0x0ff3645f).withOpacity(0.5),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "please enter your last name";
+                          }
+                          return null;
+                        },
+                        style: const TextStyle(color: Colors.black),
                       ),
                       const SizedBox(height: 20),
                       const Align(
@@ -139,11 +204,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       ElevatedButton(
                           onPressed: () {
                             if (myKey.currentState!.validate()) {
-                              showBottomSnackBar(
-                                  context: context,
-                                  message: "Account Created Successfully",
-                                  durationSeconds: 2);
-                              Navigator.pushReplacementNamed(context, '/login');
+                              // showBottomSnackBar(
+                              //     context: context,
+                              //     message: "Account Created Successfully",
+                              //     durationSeconds: 2);
+                              // Navigator.pushReplacementNamed(context, '/login');
+                              context.read<RegisterBloc>().add(
+                                    RegisterUser(
+                                      context: context,
+                                      fName: firstNameController.text,
+                                      lName: lastNameController.text,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ),
+                                  );
                             }
                           },
                           child: const Text("Submit")),
@@ -181,8 +255,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // Navigator.pop(context);
-                              Navigator.pushReplacementNamed(context, '/login');
+                              Navigator.pop(context);
                             },
                             child: const Text(
                               "Log in",

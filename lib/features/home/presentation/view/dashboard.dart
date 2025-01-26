@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:worldreader/view/explore_page.dart';
-import 'package:worldreader/view/library_page.dart';
-import 'package:worldreader/view/store_page.dart';
+import 'package:worldreader/features/library/presentation/view/library_page.dart';
+import 'package:worldreader/features/map/presentation/view/explore_page.dart';
+import 'package:worldreader/features/store/presentation/view/store_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});

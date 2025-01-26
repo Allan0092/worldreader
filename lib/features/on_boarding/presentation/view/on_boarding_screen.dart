@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldreader/features/auth/presentation/view/login_view.dart';
+import 'package:worldreader/features/auth/presentation/view/register_view.dart';
+import 'package:worldreader/features/home/presentation/view/dashboard.dart';
+import 'package:worldreader/features/on_boarding/presentation/view_model/on_boarding_screen_bloc.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
+class OnBoardingScreen extends StatelessWidget {
+  OnBoardingScreen({super.key});
 
-  @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
-}
-
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController();
 
   void _nextPage() {
@@ -59,7 +59,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             right: 20,
             child: TextButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/dashboard');
+                // Navigator.pushReplacementNamed(context, '/dashboard');
+                context.read<OnBoardingScreenBloc>().add(
+                    NavigateDashboardScreenEvent(
+                        context: context, destination: const Dashboard()));
               },
               child: const Text(
                 'Skip',
@@ -90,7 +93,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/signup');
+                  // Navigator.pushReplacementNamed(context, '/signup');
+                  context.read<OnBoardingScreenBloc>().add(
+                        NavigateRegisterScreenEvent(
+                          context: context,
+                          destination: RegisterView(),
+                        ),
+                      );
                 },
                 style: ElevatedButton.styleFrom(
                   padding:
@@ -112,7 +121,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/dashboard');
+                  // Navigator.pushReplacementNamed(context, '/dashboard');
+                  context.read<OnBoardingScreenBloc>().add(
+                        NavigateLoginScreenEvent(
+                          context: context,
+                          destination: LoginView(),
+                        ),
+                      );
                 },
                 style: ElevatedButton.styleFrom(
                   padding:
@@ -121,10 +136,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       const Color.fromARGB(255, 0, 95, 132), // Blue background
                   foregroundColor: Colors.white, // White text
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
                 ),
-                child: const Text('Skip'),
+                child: const Text('Log in'),
               ),
             ),
           )
