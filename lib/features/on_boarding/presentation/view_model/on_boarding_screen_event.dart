@@ -20,6 +20,18 @@ class NavigateRegisterScreenEvent extends OnBoardingScreenEvent {
   final BuildContext context;
   final Widget destination;
 
-  const NavigateRegisterScreenEvent(
-      {required this.context, required this.destination});
+  const NavigateRegisterScreenEvent({
+    required this.context,
+    required this.destination,
+  });
+}
+
+class NavigateDashboardScreenEvent extends OnBoardingScreenEvent {
+  final BuildContext context;
+  final Widget destination;
+
+  const NavigateDashboardScreenEvent({
+    required this.context,
+    required this.destination,
+  });
 }

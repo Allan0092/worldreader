@@ -18,22 +18,44 @@ class OnBoardingScreenBloc
   })  : _loginBloc = loginBloc,
         _registerBloc = registerBloc,
         super(OnBoardingScreenState.initial()) {
-    on<NavigateLoginScreenEvent>((event, emit) {
-      Navigator.push(
+    on<NavigateLoginScreenEvent>(
+      (event, emit) {
+        Navigator.push(
           event.context,
           MaterialPageRoute(
-              builder: (context) => BlocProvider.value(value: _loginBloc)));
-    });
+            builder: (context) => BlocProvider.value(
+              value: _loginBloc,
+              child: event.destination,
+            ),
+          ),
+        );
+      },
+    );
     on<NavigateRegisterScreenEvent>(
       (event, emit) {
         Navigator.push(
-            event.context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    BlocProvider.value(value: _registerBloc)));
+          event.context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+              value: _registerBloc,
+              child: event.destination,
+            ),
+          ),
+        );
         // add(NavigateRegisterScreenEvent(
         //     context: event.context, destination: const SignUpView()));
       },
     );
+    on<NavigateDashboardScreenEvent>((event, emit) {
+      Navigator.push(
+        event.context,
+        MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: _registerBloc, // To be changed
+            child: event.destination,
+          ),
+        ),
+      );
+    });
   }
 }
