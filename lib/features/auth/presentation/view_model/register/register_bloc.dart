@@ -44,6 +44,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         emit(state.copyWith(isLoading: false, isSuccess: true));
         showBottomSnackBar(
             context: event.context, message: "Registered Successfully");
+        Navigator.pop(event.context);
       },
     );
   }

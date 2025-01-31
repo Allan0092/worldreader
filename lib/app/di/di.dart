@@ -48,17 +48,18 @@ _initHiveService() {
 
 _initRegisterDependencies() {
   // init local data source
-  getIt.registerLazySingleton(
+  getIt.registerFactory(
     () => AuthLocalDataSource(getIt<HiveService>()),
+  );
+
+  // init remote data source
+  getIt.registerFactory<AuthRemoteDataSource>(
+    () => AuthRemoteDataSource(getIt<Dio>()),
   );
 
   // init local repository
   getIt.registerLazySingleton(
     () => AuthLocalRepository(getIt<AuthLocalDataSource>()),
-  );
-
-  getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSource(getIt<Dio>()),
   );
 
   // init remote repository
@@ -69,7 +70,7 @@ _initRegisterDependencies() {
   // register use usecase
   getIt.registerLazySingleton<RegisterUseCase>(
     () => RegisterUseCase(
-      getIt<AuthLocalRepository>(),
+      getIt<AuthRemoteRepository>(),
     ),
   );
 
