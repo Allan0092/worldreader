@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:worldreader/app/shared_prefs/token_shared_prefs.dart';
 import 'package:worldreader/core/network/api_service.dart';
 import 'package:worldreader/core/network/hive_service.dart';
 import 'package:worldreader/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
@@ -20,13 +22,11 @@ Future<void> initDependencies() async {
   // First initialize hive service
   await _initHiveService();
   await _initApiService();
-
+  await _initSharedPreferences();
   // await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
-
   await _initSplashScreenDependencies();
-
   await _initOnBoardingScreenDependencies();
 }
 
@@ -35,6 +35,11 @@ _initApiService() {
   getIt.registerLazySingleton<Dio>(
     () => ApiService(Dio()).dio,
   );
+}
+
+_initSharedPreferences() async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 }
 
 _initHiveService() {
@@ -86,9 +91,14 @@ _initRegisterDependencies() {
 // }
 
 _initLoginDependencies() async {
+  getIt.registerLazySingleton<TokenSharedPrefs>(
+    () => TokenSharedPrefs(getIt<SharedPreferences>()),
+  );
+
   getIt.registerLazySingleton<LoginUseCase>(
     () => LoginUseCase(
       getIt<AuthLocalRepository>(),
+      getIt<TokenSharedPrefs>(),
     ),
   );
 
