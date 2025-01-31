@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:worldreader/core/network/api_service.dart';
 import 'package:worldreader/core/network/hive_service.dart';
 import 'package:worldreader/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
+import 'package:worldreader/features/auth/data/data_source/remote_data_source/auth_remote_data_source.dart';
 import 'package:worldreader/features/auth/data/repository/auth_local_repository/auth_local_repository.dart';
 import 'package:worldreader/features/auth/data/repository/auth_remote_repository/auth_remote_repository.dart';
 import 'package:worldreader/features/auth/domain/use_case/login_use_case.dart';
@@ -16,6 +19,7 @@ final getIt = GetIt.instance;
 Future<void> initDependencies() async {
   // First initialize hive service
   await _initHiveService();
+  await _initApiService();
 
   // await _initHomeDependencies();
   await _initRegisterDependencies();
@@ -24,6 +28,13 @@ Future<void> initDependencies() async {
   await _initSplashScreenDependencies();
 
   await _initOnBoardingScreenDependencies();
+}
+
+_initApiService() {
+  // Remote Data Source
+  getIt.registerLazySingleton<Dio>(
+    () => ApiService(Dio()).dio,
+  );
 }
 
 _initHiveService() {
@@ -39,6 +50,15 @@ _initRegisterDependencies() {
   // init local repository
   getIt.registerLazySingleton(
     () => AuthLocalRepository(getIt<AuthLocalDataSource>()),
+  );
+
+  getIt.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSource(getIt<Dio>()),
+  );
+
+  // init remote repository
+  getIt.registerLazySingleton<AuthRemoteRepository>(
+    () => AuthRemoteRepository(getIt<AuthRemoteDataSource>()),
   );
 
   // register use usecase
