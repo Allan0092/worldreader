@@ -2,8 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:worldreader/core/network/hive_service.dart';
 import 'package:worldreader/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:worldreader/features/auth/data/repository/auth_local_repository/auth_local_repository.dart';
+import 'package:worldreader/features/auth/data/repository/auth_remote_repository/auth_remote_repository.dart';
 import 'package:worldreader/features/auth/domain/use_case/login_use_case.dart';
 import 'package:worldreader/features/auth/domain/use_case/register_use_case.dart';
+import 'package:worldreader/features/auth/domain/use_case/upload_image_usecase.dart';
 import 'package:worldreader/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:worldreader/features/auth/presentation/view_model/register/register_bloc.dart';
 import 'package:worldreader/features/on_boarding/presentation/view_model/on_boarding_screen_bloc.dart';
@@ -46,9 +48,13 @@ _initRegisterDependencies() {
     ),
   );
 
+  getIt.registerLazySingleton<UploadImageUsecase>(
+      () => UploadImageUsecase(getIt<AuthRemoteRepository>()));
+
   getIt.registerFactory<RegisterBloc>(
     () => RegisterBloc(
       registerUseCase: getIt(),
+      uploadImageUseCase: getIt(),
     ),
   );
 }
