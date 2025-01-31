@@ -1,21 +1,59 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:worldreader/features/auth/presentation/view_model/register/register_bloc.dart';
 
-class RegisterView extends StatelessWidget {
-  RegisterView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
-  final firstNameController = TextEditingController(text: "");
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
 
-  final lastNameController = TextEditingController(text: "");
+class _RegisterViewState extends State<RegisterView> {
+  final _firstNameController = TextEditingController(text: "");
 
-  final emailController = TextEditingController(text: "");
+  final _lastNameController = TextEditingController(text: "");
 
-  final passwordController = TextEditingController(text: "");
+  final _emailController = TextEditingController(text: "");
 
-  final confirmPasswordController = TextEditingController(text: "");
+  final _passwordController = TextEditingController(text: "");
 
-  final myKey = GlobalKey<FormState>();
+  final _confirmPasswordController = TextEditingController(text: "");
+
+  final _myKey = GlobalKey<FormState>();
+
+  // check for camera permission
+  Future<void> checkCameraPermission() async {
+    if (await Permission.camera.request().isRestricted ||
+        await Permission.camera.request().isDenied) {
+      await Permission.camera.request();
+    }
+  }
+
+  File? _img;
+
+  Future _browseImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          _img = File(image.path);
+          // send Image to server
+          context.read<RegisterBloc>().add(
+                UploadImage(file: _img!),
+              );
+        });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +69,67 @@ class RegisterView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
-                key: myKey,
+                key: _myKey,
                 child: SingleChildScrollView(
                   child: Center(
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/icons/WorldReaderLogo.png',
-                        height: 150,
+                      // Image.asset(
+                      //   'assets/icons/WorldReaderLogo.png',
+                      //   height: 150,
+                      // ),
+                      InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            backgroundColor: Colors.grey,
+                            context: context,
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20),
+                              ),
+                            ),
+                            builder: (context) => Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ElevatedButton.icon(
+                                    onPressed: () {
+                                      checkCameraPermission();
+                                      _browseImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(Icons.camera),
+                                    label: const Text('Camera'),
+                                  ),
+                                  ElevatedButton.icon(
+                                    onPressed: () {
+                                      _browseImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(Icons.image),
+                                    label: const Text("Gallery"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        child: SizedBox(
+                          height: 200,
+                          width: 200,
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundImage: _img != null
+                                ? FileImage(_img!)
+                                : const AssetImage(
+                                        'assets/icons/user_profile_icon.png')
+                                    as ImageProvider,
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 20),
                       const Align(
@@ -50,7 +140,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
-                        controller: firstNameController,
+                        controller: _firstNameController,
                         decoration: InputDecoration(
                           focusColor: Colors.blue,
                           hoverColor: Colors.blue,
@@ -81,7 +171,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
-                        controller: lastNameController,
+                        controller: _lastNameController,
                         decoration: InputDecoration(
                           focusColor: Colors.blue,
                           hoverColor: Colors.blue,
@@ -112,7 +202,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
-                        controller: emailController,
+                        controller: _emailController,
                         decoration: InputDecoration(
                             focusColor: Colors.blue,
                             hoverColor: Colors.blue,
@@ -146,7 +236,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
-                        controller: passwordController,
+                        controller: _passwordController,
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -176,7 +266,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
-                        controller: confirmPasswordController,
+                        controller: _confirmPasswordController,
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -192,7 +282,7 @@ class RegisterView extends StatelessWidget {
                           if (value == null || value.isEmpty) {
                             return "please repeat the password";
                           } else if (value.toString() !=
-                              passwordController.text.toString()) {
+                              _passwordController.text.toString()) {
                             return "passwords does not match";
                           }
                           return null;
@@ -203,19 +293,23 @@ class RegisterView extends StatelessWidget {
                       ),
                       ElevatedButton(
                           onPressed: () {
-                            if (myKey.currentState!.validate()) {
+                            if (_myKey.currentState!.validate()) {
                               // showBottomSnackBar(
                               //     context: context,
                               //     message: "Account Created Successfully",
                               //     durationSeconds: 2);
                               // Navigator.pushReplacementNamed(context, '/login');
+                              final registerState =
+                                  context.read<RegisterBloc>().state;
+                              final imageName = registerState.imageName;
                               context.read<RegisterBloc>().add(
                                     RegisterUser(
                                       context: context,
-                                      fName: firstNameController.text,
-                                      lName: lastNameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
+                                      fName: _firstNameController.text,
+                                      lName: _lastNameController.text,
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                      image: imageName,
                                     ),
                                   );
                             }

@@ -31,10 +31,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       lastName: event.lName,
       email: event.email,
       password: event.password,
+      image: state.imageName,
     ));
 
     result.fold(
-      (l) => emit(state.copyWith(isLoading: false, isSuccess: false)),
+      (l) {
+        emit(state.copyWith(isLoading: false, isSuccess: false));
+        showBottomSnackBar(
+            context: event.context, message: l.message, color: Colors.red);
+      },
       (r) {
         emit(state.copyWith(isLoading: false, isSuccess: true));
         showBottomSnackBar(
