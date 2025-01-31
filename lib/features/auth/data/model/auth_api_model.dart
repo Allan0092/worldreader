@@ -8,19 +8,19 @@ part 'auth_api_model.g.dart';
 class AuthApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
-  // ignore: non_constant_identifier_names
-  final String first_name;
-  // ignore: non_constant_identifier_names
-  final String last_name;
+  @JsonKey(name: "first_name")
+  final String fName;
+  @JsonKey(name: "last_name")
+  final String lName;
   final String email;
   final String password;
 
   const AuthApiModel({
     this.id,
     // ignore: non_constant_identifier_names
-    required this.first_name,
+    required this.fName,
     // ignore: non_constant_identifier_names
-    required this.last_name,
+    required this.lName,
     required this.email,
     required this.password,
   });
@@ -32,17 +32,17 @@ class AuthApiModel extends Equatable {
 
   AuthEntity toEntity() {
     return AuthEntity(
-        fName: first_name, lName: last_name, email: email, password: password);
+        fName: fName, lName: lName, email: email, password: password);
   }
 
   factory AuthApiModel.fromEntity(AuthEntity entity) {
     return AuthApiModel(
-        first_name: entity.fName,
-        last_name: entity.lName,
+        fName: entity.fName,
+        lName: entity.lName,
         email: entity.email,
         password: entity.password);
   }
 
   @override
-  List<Object?> get props => [id, first_name, last_name, email, password];
+  List<Object?> get props => [id, fName, lName, email, password];
 }

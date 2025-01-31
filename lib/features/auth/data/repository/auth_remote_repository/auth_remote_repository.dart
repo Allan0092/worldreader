@@ -29,9 +29,13 @@ class AuthRemoteRepository implements IAuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> registerUser(AuthEntity user) {
-    // TODO: implement registerUser
-    throw UnimplementedError();
+  Future<Either<Failure, void>> registerUser(AuthEntity user) async {
+    try {
+      await _authRemoteDataSource.registerUser(user);
+      return const Right(null);
+    } catch (e) {
+      return Left(ApiFailure(message: e.toString()));
+    }
   }
 
   @override
