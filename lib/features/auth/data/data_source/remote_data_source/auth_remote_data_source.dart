@@ -36,7 +36,7 @@ class AuthRemoteDataSource implements IAuthDataSource {
     } on DioException catch (e) {
       throw Exception("Dio Error ${e.toString()}");
     } catch (e) {
-      rethrow;
+      throw Exception(e);
     }
   }
 
@@ -53,7 +53,7 @@ class AuthRemoteDataSource implements IAuthDataSource {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return;
       } else {
         throw Exception(response.statusMessage);
@@ -61,7 +61,7 @@ class AuthRemoteDataSource implements IAuthDataSource {
     } on DioException catch (e) {
       throw Exception("Dio Error: ${e.toString()}");
     } catch (e) {
-      rethrow;
+      throw Exception(e);
     }
   }
 
