@@ -17,6 +17,14 @@ class AuthEntity extends Equatable {
     required this.password,
   });
 
+  const AuthEntity.empty()
+      : userId = "_empty.userId",
+        fName = "_empty.fName",
+        lName = "_empty.lName",
+        image = "_empty.image",
+        email = "_empty.email",
+        password = "_empty.password";
+
   @override
   List<Object?> get props => [userId, fName, lName, image, email, password];
 }
