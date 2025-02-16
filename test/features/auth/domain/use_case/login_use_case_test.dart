@@ -23,9 +23,12 @@ void main() {
   const token = "token";
   const loginParams = LoginParams(email: email, password: password);
 
-  test("login and check credentials", () async {
+  test("login and check credentials with correct email and password", () async {
     when(() => tokenSharedPrefs.getToken())
         .thenAnswer((_) async => const Right(token));
+
+    when(() => tokenSharedPrefs.saveToken(any()))
+        .thenAnswer((_) async => const Right(null));
 
     when(() => repository.loginUser(any(), any()))
         .thenAnswer((invocation) async {
@@ -43,6 +46,7 @@ void main() {
 
     verify(() => tokenSharedPrefs.getToken()).called(1);
     verify(() => repository.loginUser(email, password)).called(1);
+    verify(() => tokenSharedPrefs.saveToken(any())).called(1);
 
     verifyNoMoreInteractions(repository);
     verifyNoMoreInteractions(tokenSharedPrefs);
