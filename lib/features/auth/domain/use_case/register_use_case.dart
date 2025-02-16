@@ -28,6 +28,13 @@ class RegisterUserParams extends Equatable {
     this.image,
   });
 
+  const RegisterUserParams.empty()
+      : firstName = "_empty.firstName",
+        lastName = "_empty.lastName",
+        email = "_empty.email",
+        password = "_empty.password",
+        image = "_empty.image";
+
   @override
   List<Object?> get props => [firstName, lastName, email, password];
 }

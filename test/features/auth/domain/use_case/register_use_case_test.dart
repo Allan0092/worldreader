@@ -1,40 +1,33 @@
-import 'package:mockito/mockito.dart';
-import 'package:worldreader/features/auth/domain/repository/auth_repository.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:worldreader/features/auth/domain/entity/auth_entity.dart';
+import 'package:worldreader/features/auth/domain/use_case/register_use_case.dart';
 
-class MockAuthRepository extends Mock implements IAuthRepository {}
+import 'repository.mock.dart';
 
 void main() {
-  // late RegisterUseCase registerUseCase;
-  // late MockAuthRepository mockAuthRepository;
-  // setUp(() {
-  //   mockAuthRepository = MockAuthRepository();
-  //   registerUseCase = RegisterUseCase(mockAuthRepository);
-  // });
+  late MockAuthRepository repository;
+  late RegisterUseCase usecase;
 
-  // testWidgets(
-  //   'register use case ...',
-  //   (tester) async {
-  //     test(
-  //       "Register User",
-  //       () async {
-  //         RegisterUserParams registerUserParams = const RegisterUserParams(
-  //           firstName: "user1",
-  //           lastName: "last1",
-  //           email: "user1@email.com",
-  //           password: "password1",
-  //         );
+  setUp(() {
+    repository = MockAuthRepository();
+    usecase = RegisterUseCase(repository);
+    registerFallbackValue(const AuthEntity.empty());
+  });
 
-  //         AuthEntity user = const AuthEntity(
-  //           fName: 'user1',
-  //           lName: 'last1',
-  //           email: 'user1@email.com',
-  //           password: "password1",
-  //         );
+  const params = RegisterUserParams.empty();
 
-  //         when(mockAuthRepository.registerUser(user))
-  //             .thenAnswer((_) async => Right(user));
-  //       },
-  //     );
-  //   },
-  // );
+  test("should call the [RegisterAuthRepo.registerUser]", () async {
+    when(() => repository.registerUser(any()))
+        .thenAnswer((_) async => const Right(null));
+
+    final result = await usecase(params);
+
+    expect(result, const Right(null));
+
+    verify(() => repository.registerUser(any())).called(1);
+
+    verifyNoMoreInteractions(repository);
+  });
 }
