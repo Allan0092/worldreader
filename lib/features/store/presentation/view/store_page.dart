@@ -25,7 +25,7 @@ class StorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.read<StoreBloc>().add(LoadBooks());
+    context.read<StoreBloc>().add(LoadBooks());
     return Scaffold(
       body: BlocBuilder<StoreBloc, StoreState>(
         builder: (context, state) {

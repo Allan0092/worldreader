@@ -125,25 +125,25 @@ _initLoginDependencies() async {
 }
 
 _initStoreDependency() async {
-  // Data Sources
+  // ============================ Data Sources ============================
   getIt.registerLazySingleton<StoreRemoteDataSource>(
       () => StoreRemoteDataSource(dio: getIt<Dio>()));
 
   getIt.registerLazySingleton<StoreLocalDataSource>(
       () => StoreLocalDataSource(getIt<HiveService>()));
 
-  // Repositories
+  // ============================  Repositories ============================
   getIt.registerLazySingleton<StoreRemoteRepository>(
       () => StoreRemoteRepository(getIt<StoreRemoteDataSource>()));
 
   getIt.registerLazySingleton<StoreLocalRepository>(() => StoreLocalRepository(
       storeLocalDataSource: getIt<StoreLocalDataSource>()));
 
-  // UseCase
+  // ============================ UseCase ==================================
   getIt.registerLazySingleton<GetAllBooksUseCase>(
       () => GetAllBooksUseCase(repository: getIt<StoreRemoteRepository>()));
 
-  // Bloc
+  // ============================ Bloc =====================================
   getIt.registerFactory<StoreBloc>(
       () => StoreBloc(getAllBooksUseCase: getIt<GetAllBooksUseCase>()));
 }
