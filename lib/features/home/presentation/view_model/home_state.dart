@@ -10,13 +10,12 @@ import 'package:worldreader/features/store/presentation/view_model/store_bloc.da
 class HomeState extends Equatable {
   final int selectedIndex;
   final List<Widget> views;
-  final List<String> appBarTexts;
+  final List<String> appBarTexts = ["Explore", "Library", "Store"];
   final String currAppBarText;
 
-  const HomeState({
+  HomeState({
     required this.selectedIndex,
     required this.views,
-    required this.appBarTexts,
     required this.currAppBarText,
   });
 
@@ -31,8 +30,7 @@ class HomeState extends Equatable {
           child: const StorePage(),
         ),
       ],
-      appBarTexts: const ["Explore", "Library", "Store"],
-      currAppBarText: "",
+      currAppBarText: 'Store',
     );
   }
 
@@ -43,7 +41,6 @@ class HomeState extends Equatable {
     return HomeState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       views: views ?? this.views,
-      appBarTexts: appBarTexts,
       currAppBarText: appBarTexts.elementAt(selectedIndex ?? 0),
     );
   }
