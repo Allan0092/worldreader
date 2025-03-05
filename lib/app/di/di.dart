@@ -13,6 +13,7 @@ import 'package:worldreader/features/auth/domain/use_case/register_use_case.dart
 import 'package:worldreader/features/auth/domain/use_case/upload_image_usecase.dart';
 import 'package:worldreader/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:worldreader/features/auth/presentation/view_model/register/register_bloc.dart';
+import 'package:worldreader/features/home/presentation/view_model/home_cubit.dart';
 import 'package:worldreader/features/on_boarding/presentation/view_model/on_boarding_screen_bloc.dart';
 import 'package:worldreader/features/splash/presentation/view_model/splash_cubit.dart';
 import 'package:worldreader/features/store/data/data_source/local_data_source/store_local_data_source.dart';
@@ -32,6 +33,7 @@ Future<void> initDependencies() async {
   // await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
+  await _initHomeDependencies();
   await _initSplashScreenDependencies();
   await _initOnBoardingScreenDependencies();
   await _initStoreDependency();
@@ -93,11 +95,11 @@ _initRegisterDependencies() {
   );
 }
 
-// _initHomeDependencies() async {
-//   getIt.registerFactory<HomeCubit>(
-//     () => HomeCubit(),
-//   );
-// }
+_initHomeDependencies() async {
+  getIt.registerFactory<HomeCubit>(
+    () => HomeCubit(),
+  );
+}
 
 _initLoginDependencies() async {
   getIt.registerLazySingleton<TokenSharedPrefs>(
@@ -155,7 +157,10 @@ _initSplashScreenDependencies() async {
 _initOnBoardingScreenDependencies() async {
   getIt.registerFactory<OnBoardingScreenBloc>(
     () => OnBoardingScreenBloc(
-        loginBloc: getIt<LoginBloc>(), registerBloc: getIt<RegisterBloc>()),
+      homeCubit: getIt<HomeCubit>(),
+      loginBloc: getIt<LoginBloc>(),
+      registerBloc: getIt<RegisterBloc>(),
+    ),
   );
 
   // getIt.registerFactory<RegisterBloc>(
