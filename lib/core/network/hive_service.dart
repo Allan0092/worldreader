@@ -2,6 +2,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:worldreader/app/constants/hive_table_constant.dart';
 import 'package:worldreader/features/auth/data/model/auth_hive_model.dart';
+import 'package:worldreader/features/store/data/model/store_hive_model.dart';
 
 class HiveService {
   static Future<void> init() async {
@@ -75,6 +76,12 @@ class HiveService {
   // Clear Student Box
   Future<void> clearUserBox() async {
     await Hive.deleteBoxFromDisk(HiveTableConstant.userBox);
+  }
+
+  Future<List<StoreHiveModel>> getAllBooks() async {
+    var box = await Hive.openBox<StoreHiveModel>(HiveTableConstant.bookBox);
+    return box.values.toList()
+      ..sort((a, b) => a.title.compareTo(b.title)); // Sort by book title
   }
 
   Future<void> close() async {
