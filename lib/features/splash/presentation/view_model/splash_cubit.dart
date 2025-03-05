@@ -9,8 +9,6 @@ class SplashCubit extends Cubit<void> {
 
   Future<void> init(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2), () async {
-      // Open Login page or Onboarding Screen
-
       if (context.mounted) {
         Navigator.pushReplacement(
           context,
