@@ -20,13 +20,6 @@ class MyApp extends StatelessWidget {
         value: getIt<SplashCubit>(),
         child: const SplashView(),
       ),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => const OnBoardingScreen(),
-      //   '/login': (context) => const LoginPage(),
-      //   '/signup': (context) => const SignUpPage(),
-      //   '/dashboard': (context) => const Dashboard(),
-      // },
     );
   }
 }
