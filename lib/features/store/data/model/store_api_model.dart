@@ -29,7 +29,7 @@ class StoreApiModel extends Equatable {
 
   BookEntity toEntity() {
     return BookEntity(
-      id: id,
+      bookId: id,
       title: title,
       author: author,
       coverURL: coverURL,
@@ -39,7 +39,7 @@ class StoreApiModel extends Equatable {
 
   factory StoreApiModel.fromEntity(BookEntity entity) {
     return StoreApiModel(
-        id: entity.id,
+        id: entity.bookId,
         title: entity.title,
         coverURL: entity.coverURL,
         author: entity.author,
