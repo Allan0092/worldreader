@@ -126,18 +126,18 @@ _initLoginDependencies() async {
 
 _initStoreDependency() async {
   // Data Sources
+  getIt.registerLazySingleton<StoreRemoteDataSource>(
+      () => StoreRemoteDataSource(dio: getIt<Dio>()));
+
   getIt.registerLazySingleton<StoreLocalDataSource>(
       () => StoreLocalDataSource(getIt<HiveService>()));
 
-  getIt.registerLazySingleton<StoreRemoteDataSource>(
-      () => StoreRemoteDataSource(getIt<Dio>()));
-
   // Repositories
-  getIt.registerLazySingleton<StoreLocalRepository>(() => StoreLocalRepository(
-      storeLocalDataSource: getIt<StoreLocalDataSource>()));
-
   getIt.registerLazySingleton<StoreRemoteRepository>(
       () => StoreRemoteRepository(getIt<StoreRemoteDataSource>()));
+
+  getIt.registerLazySingleton<StoreLocalRepository>(() => StoreLocalRepository(
+      storeLocalDataSource: getIt<StoreLocalDataSource>()));
 
   // UseCase
   getIt.registerLazySingleton<GetAllBooksUseCase>(
