@@ -17,7 +17,6 @@
 // lib/features/store/presentation/view/store_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldreader/core/app_theme/app_theme.dart';
 import 'package:worldreader/features/store/domain/entity/book_entity.dart';
 import 'package:worldreader/features/store/presentation/view_model/store_bloc.dart';
 
@@ -28,17 +27,6 @@ class StorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // context.read<StoreBloc>().add(LoadBooks());
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Store',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontFamily: 'Fondamento Regular',
-                fontSize: 48,
-                color: getApplicationTheme().textTheme.headlineSmall?.color,
-              ),
-        ),
-        backgroundColor: getApplicationTheme().primaryColor,
-      ),
       body: BlocBuilder<StoreBloc, StoreState>(
         builder: (context, state) {
           if (state.isLoading) {
