@@ -22,7 +22,7 @@ class StoreApiModel extends Equatable {
     required this.verifiedStatus,
   });
 
-  factory StoreApiModel.formJson(Map<String, dynamic> json) =>
+  factory StoreApiModel.fromJson(Map<String, dynamic> json) =>
       _$StoreApiModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$StoreApiModelToJson(this);
@@ -45,6 +45,9 @@ class StoreApiModel extends Equatable {
         author: entity.author,
         verifiedStatus: entity.verifiedStatus);
   }
+
+  static List<BookEntity> toEntityList(List<StoreApiModel> models) =>
+      models.map((model) => model.toEntity()).toList();
 
   @override
   List<Object?> get props => [id, title, coverURL, author, verifiedStatus];

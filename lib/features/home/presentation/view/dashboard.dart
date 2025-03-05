@@ -30,7 +30,7 @@ class _DashboardState extends State<Dashboard> {
                 state.currAppBarText,
                 style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 48,
+                    fontSize: 35,
                     fontFamily: "Fondamento Regular"),
               ),
               const CircleAvatar(
