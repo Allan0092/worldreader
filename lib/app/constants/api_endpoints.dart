@@ -11,4 +11,7 @@ class ApiEndpoints {
   static const String updateUser = "user/update"; // POST
   static const String findUserByEmail = "user/findByEmail"; // POST
   static const String uploadImage = "imageUpload"; //
+
+  // ========================= Book Routes ==================================
+  static const String getAllPublicBooks = "book/public";
 }
