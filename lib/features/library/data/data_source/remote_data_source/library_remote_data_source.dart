@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:worldreader/app/constants/api_endpoints.dart';
 import 'package:worldreader/app/di/di.dart';
 import 'package:worldreader/app/shared_prefs/token_shared_prefs.dart';
@@ -11,9 +12,17 @@ class LibraryRemoteDataSource {
 
   Future<List<LibraryEntity>> getUserLibrary() async {
     try {
-      final response = await _dio.get(ApiEndpoints.getUserLibrary,
-          options: Options(
-              headers: {'Authorization': 'Bearer ${await _getAuthToken()}'}));
+      String token = await _getAuthToken() ?? "";
+      final payload = Jwt.parseJwt(token);
+      final userId = payload['id'] as String?;
+      if (userId == null) throw Exception('User ID not found in token');
+
+      final response = await _dio.get(
+        ApiEndpoints.getUserLibrary + userId,
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
 
       if (response.statusCode == 200) {
         final List<dynamic> booksJson = response.data['library'];
@@ -30,10 +39,15 @@ class LibraryRemoteDataSource {
 
   Future<String?> _getAuthToken() async {
     final tokenPrefs = getIt<TokenSharedPrefs>();
+    late String token;
     final tokenResult = await tokenPrefs.getToken();
-    return tokenResult.fold(
-      (failure) => null,
-      (token) => token,
+    tokenResult.fold(
+      (failure) => "",
+      (usertoken) {
+        if (usertoken.isEmpty) throw Exception("No auth token found");
+        token = usertoken;
+      },
     );
+    return token;
   }
 }
