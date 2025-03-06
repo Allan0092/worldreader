@@ -48,7 +48,7 @@ class StorePage extends StatelessWidget {
               Expanded(
                 child: book.coverURL.isNotEmpty
                     ? Image.network(
-                        book.coverURL,
+                        "http://10.0.2.2:5000/${book.coverURL}",
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return const Icon(Icons.book, size: 100);
