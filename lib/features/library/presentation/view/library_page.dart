@@ -68,7 +68,7 @@ class LibraryPage extends StatelessWidget {
         return Card(
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          color: Colors.grey[200],
+          color: Colors.black,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -109,7 +109,7 @@ class LibraryPage extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall
-                          ?.copyWith(color: Colors.grey[600]),
+                          ?.copyWith(color: Colors.grey[200]),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
