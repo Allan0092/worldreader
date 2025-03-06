@@ -25,7 +25,7 @@ class LibraryRemoteDataSource {
       );
 
       if (response.statusCode == 200) {
-        final List<dynamic> booksJson = response.data['library'];
+        final List<dynamic> booksJson = response.data;
         return booksJson.map((json) => LibraryEntity.fromJson(json)).toList();
       } else {
         throw Exception(response.statusMessage);
