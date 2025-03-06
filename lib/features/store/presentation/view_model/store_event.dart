@@ -9,3 +9,13 @@ sealed class StoreEvent extends Equatable {
 }
 
 final class LoadBooks extends StoreEvent {}
+
+final class AddToLibrary extends StoreEvent {
+  final BuildContext context;
+  final String bookId;
+
+  const AddToLibrary({required this.bookId, required this.context});
+
+  @override
+  List<Object?> get props => [bookId, context];
+}

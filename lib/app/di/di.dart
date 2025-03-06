@@ -20,6 +20,7 @@ import 'package:worldreader/features/store/data/data_source/local_data_source/st
 import 'package:worldreader/features/store/data/data_source/remote_data_source/store_remote_data_source.dart';
 import 'package:worldreader/features/store/data/repository/store_local_repository/store_local_repository.dart';
 import 'package:worldreader/features/store/data/repository/store_remote_repository/store_remote_repository.dart';
+import 'package:worldreader/features/store/domain/use_case/add_book_to_library.dart';
 import 'package:worldreader/features/store/domain/use_case/get_all_books_usecase.dart';
 import 'package:worldreader/features/store/presentation/view_model/store_bloc.dart';
 
@@ -143,9 +144,17 @@ _initStoreDependency() async {
   getIt.registerLazySingleton<GetAllBooksUseCase>(
       () => GetAllBooksUseCase(repository: getIt<StoreRemoteRepository>()));
 
+  getIt.registerLazySingleton<AddBookToLibraryUseCase>(
+    () => AddBookToLibraryUseCase(
+        storeRepository: getIt<StoreRemoteRepository>()),
+  );
+
   // ============================ Bloc =====================================
-  getIt.registerFactory<StoreBloc>(
-      () => StoreBloc(getAllBooksUseCase: getIt<GetAllBooksUseCase>()));
+  getIt.registerFactory<StoreBloc>(() => StoreBloc(
+      getAllBooksUseCase: getIt<GetAllBooksUseCase>(),
+      dio: getIt<Dio>(),
+      tokenSharedPrefs: getIt<TokenSharedPrefs>(),
+      addBookToLibraryUseCase: getIt<AddBookToLibraryUseCase>()));
 }
 
 _initSplashScreenDependencies() async {

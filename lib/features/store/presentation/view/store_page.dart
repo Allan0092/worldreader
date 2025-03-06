@@ -1,3 +1,4 @@
+// lib/features/store/presentation/view/store_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/features/store/domain/entity/book_entity.dart';
@@ -77,10 +78,8 @@ class StorePage extends StatelessWidget {
                       const Icon(Icons.verified, color: Colors.blue, size: 16),
                     ElevatedButton(
                       onPressed: () {
-                        // TODO: Implement add to library (e.g., via API call or BLoC action)
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Add to Library')),
-                        );
+                        context.read<StoreBloc>().add(AddToLibrary(
+                            bookId: book.bookId, context: context));
                       },
                       child: const Text('Add to Library'),
                     ),
