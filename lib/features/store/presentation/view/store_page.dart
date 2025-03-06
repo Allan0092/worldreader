@@ -42,6 +42,7 @@ class StorePage extends StatelessWidget {
         final book = books[index];
         return Card(
           elevation: 4,
+          color: Colors.grey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
