@@ -4,4 +4,5 @@ import 'package:worldreader/features/store/domain/entity/book_entity.dart';
 
 abstract interface class IStoreRepository {
   Future<Either<Failure, List<BookEntity>>> getStoreBooks();
+  Future<Either<Failure, void>> addToLibrary(String userId, String bookId);
 }

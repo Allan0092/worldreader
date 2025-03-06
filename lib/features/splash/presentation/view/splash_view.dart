@@ -46,8 +46,14 @@ class _SplashViewState extends State<SplashView> {
               ],
             ),
           ),
-          const Positioned(
-              bottom: 10, child: Text("Developed by: Allan Gautam"))
+          Positioned(
+            bottom: 10,
+            left: MediaQuery.of(context).size.width / 4,
+            child: const Text(
+              "Developed by: Allan Gautam",
+              style: TextStyle(fontSize: 15),
+            ),
+          )
         ],
       ),
     );

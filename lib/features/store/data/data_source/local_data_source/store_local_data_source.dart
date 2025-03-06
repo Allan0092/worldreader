@@ -19,4 +19,10 @@ class StoreLocalDataSource implements IStoreDataSource {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<void> addToLibrary(String userId, String bookId) {
+    // TODO: implement addToLibrary
+    throw UnimplementedError();
+  }
 }

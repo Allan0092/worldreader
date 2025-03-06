@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
       title: 'WorldReader',
       debugShowMaterialGrid: false,
       theme: getApplicationTheme(),
-      // home: const OnBoardingScreen(),
       home: BlocProvider.value(
         value: getIt<SplashCubit>(),
         child: const SplashView(),

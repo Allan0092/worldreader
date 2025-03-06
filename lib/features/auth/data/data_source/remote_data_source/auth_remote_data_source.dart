@@ -11,9 +11,20 @@ class AuthRemoteDataSource implements IAuthDataSource {
   AuthRemoteDataSource(this._dio);
 
   @override
-  Future<AuthEntity> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
+  Future<String> getCurrentUserId(String userEmail) async {
+    try {
+      Response response = await _dio.post(ApiEndpoints.findUserByEmail,
+          data: {"email": "allan.gautam@email.com"});
+
+      if (response.statusCode == 200) {
+        final userId = response.data['id'];
+        return userId;
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   @override

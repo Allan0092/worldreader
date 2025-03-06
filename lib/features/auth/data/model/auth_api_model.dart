@@ -15,6 +15,7 @@ class AuthApiModel extends Equatable {
   final String email;
   final String password;
   final String? image;
+  final List<String>? library;
 
   const AuthApiModel({
     this.id,
@@ -25,6 +26,7 @@ class AuthApiModel extends Equatable {
     required this.email,
     required this.password,
     this.image,
+    this.library,
   });
 
   factory AuthApiModel.fromJson(Map<String, dynamic> json) =>
@@ -39,19 +41,21 @@ class AuthApiModel extends Equatable {
       email: email,
       password: password,
       image: image,
+      library: library,
     );
   }
 
   factory AuthApiModel.fromEntity(AuthEntity entity) {
     return AuthApiModel(
-      fName: entity.fName,
-      lName: entity.lName,
-      email: entity.email,
-      password: entity.password,
-      image: entity.image,
-    );
+        fName: entity.fName,
+        lName: entity.lName,
+        email: entity.email,
+        password: entity.password,
+        image: entity.image,
+        library: entity.library);
   }
 
   @override
-  List<Object?> get props => [id, fName, lName, email, password, image];
+  List<Object?> get props =>
+      [id, fName, lName, email, password, image, library];
 }
