@@ -18,4 +18,16 @@ class StoreRemoteRepository implements IStoreRepository {
       return Left(ApiFailure(message: "Book Fetching Failed: ${e.toString()}"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> addToLibrary(
+      String userId, String bookId) async {
+    try {
+      await _storeRemoteDataSource.addToLibrary(userId, bookId);
+      return const Right(null);
+    } catch (e) {
+      return Left(
+          ApiFailure(message: "Failed adding to library ${e.toString()}"));
+    }
+  }
 }

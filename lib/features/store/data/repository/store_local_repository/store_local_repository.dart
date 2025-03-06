@@ -20,4 +20,10 @@ class StoreLocalRepository implements IStoreRepository {
       return Future.value(Left(LocalDatabaseFailure(message: e.toString())));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> addToLibrary(String userId, String bookId) {
+    // TODO: implement addToLibrary
+    throw UnimplementedError();
+  }
 }

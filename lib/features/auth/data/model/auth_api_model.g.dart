@@ -13,6 +13,8 @@ AuthApiModel _$AuthApiModelFromJson(Map<String, dynamic> json) => AuthApiModel(
       email: json['email'] as String,
       password: json['password'] as String,
       image: json['image'] as String?,
+      library:
+          (json['library'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$AuthApiModelToJson(AuthApiModel instance) =>
@@ -23,4 +25,5 @@ Map<String, dynamic> _$AuthApiModelToJson(AuthApiModel instance) =>
       'email': instance.email,
       'password': instance.password,
       'image': instance.image,
+      'library': instance.library,
     };

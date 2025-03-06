@@ -35,4 +35,15 @@ class StoreRemoteDataSource implements IStoreDataSource {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<void> addToLibrary(String userId, String bookId) async {
+    try {
+      await _dio.post(ApiEndpoints.addToLibrary, data: {userId, bookId});
+    } on DioException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
