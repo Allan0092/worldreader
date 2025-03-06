@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
 import 'package:worldreader/features/auth/domain/use_case/login_use_case.dart';
 import 'package:worldreader/features/auth/presentation/view_model/register/register_bloc.dart';
-import 'package:worldreader/features/home/presentation/view/dashboard.dart';
+import 'package:worldreader/features/home/presentation/view_model/home_cubit.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -12,12 +12,15 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase _loginUseCase;
   final RegisterBloc _registerBloc;
+  final HomeCubit _homeCubit;
 
   LoginBloc({
     required LoginUseCase loginUseCase,
     required RegisterBloc registerBloc,
+    required HomeCubit homeCubit,
   })  : _loginUseCase = loginUseCase,
         _registerBloc = registerBloc,
+        _homeCubit = homeCubit,
         super(LoginState.initial()) {
     on<NavigateRegisterScreenEvent>(
       (event, emit) {
@@ -49,12 +52,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           },
           (token) {
             emit(state.copyWith(isLoading: false, isSuccess: true));
-            add(
-              NavigateRegisterScreenEvent(
-                context: event.context,
-                destination: const Dashboard(),
+            Navigator.pushReplacement(
+              event.context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider.value(
+                  value: _homeCubit,
+                  child: event.destination,
+                ),
               ),
             );
+
+            // add(
+            //   NavigateRegisterScreenEvent(
+            //     context: event.context,
+            //     destination: const Dashboard(),
+            //   ),
+            // );
           },
         );
       },

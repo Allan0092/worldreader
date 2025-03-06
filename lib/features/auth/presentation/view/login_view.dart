@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
 import 'package:worldreader/features/auth/presentation/view/register_view.dart';
 import 'package:worldreader/features/auth/presentation/view_model/login/login_bloc.dart';
+import 'package:worldreader/features/home/presentation/view/dashboard.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -118,6 +119,7 @@ class LoginView extends StatelessWidget {
                                       context: context,
                                       email: emailController.text,
                                       password: passwordController.text,
+                                      destination: const Dashboard(),
                                     ),
                                   );
                             } else {
@@ -167,7 +169,7 @@ class LoginView extends StatelessWidget {
                                   .read<LoginBloc>()
                                   .add(NavigateRegisterScreenEvent(
                                     context: context,
-                                    destination: RegisterView(),
+                                    destination: const RegisterView(),
                                   ));
                             },
                             child: const Text(

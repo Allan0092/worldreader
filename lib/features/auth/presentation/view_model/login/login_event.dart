@@ -21,10 +21,12 @@ class LoginUserEvent extends LoginEvent {
   final BuildContext context;
   final String email;
   final String password;
+  final Widget destination;
 
   const LoginUserEvent({
     required this.context,
     required this.email,
     required this.password,
+    required this.destination,
   });
 }
