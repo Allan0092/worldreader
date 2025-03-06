@@ -1,20 +1,3 @@
-// class StorePage extends StatelessWidget {
-//   const StorePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       body: Column(
-//         children: [
-//           Text(
-//               style: TextStyle(fontSize: 48, fontFamily: "Fondamento Regular"),
-//               "Store")
-//         ],
-//       ),
-//     );
-//   }
-// }
-// lib/features/store/presentation/view/store_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/features/store/domain/entity/book_entity.dart';

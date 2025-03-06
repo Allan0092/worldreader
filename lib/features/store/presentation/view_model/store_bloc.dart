@@ -15,13 +15,16 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
   })  : _getAllBooksUseCase = getAllBooksUseCase,
         super(StoreState.initial()) {
     on<LoadBooks>(_onLoadBooks);
+
+    add(LoadBooks());
   }
 
   Future<void> _onLoadBooks(LoadBooks event, Emitter<StoreState> emit) async {
     emit(state.copyWith(isLoading: true));
     final result = await _getAllBooksUseCase.call();
     result.fold(
-      (failure) => emit(state.copyWith(isLoading: true)),
+      (failure) =>
+          emit(state.copyWith(isLoading: true, error: failure.message)),
       (books) => emit(state.copyWith(isLoading: false, books: books)),
     );
   }
