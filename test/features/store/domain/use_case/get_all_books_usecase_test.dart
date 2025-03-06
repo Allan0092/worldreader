@@ -31,7 +31,6 @@ void main() {
 
   final tBooks = [tBook1, tBook2];
 
-  // Existing Test
   test("List down all the books", () async {
     when(() => repository.getStoreBooks())
         .thenAnswer((_) async => Right(tBooks));
@@ -42,7 +41,6 @@ void main() {
     verify(() => repository.getStoreBooks()).called(1);
   });
 
-  // Additional Tests
   test("Return empty book list when repository returns no books", () async {
     when(() => repository.getStoreBooks())
         .thenAnswer((_) async => const Right(<BookEntity>[]));
