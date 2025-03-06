@@ -1,4 +1,3 @@
-// lib/features/store/presentation/view/store_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/features/store/domain/entity/book_entity.dart';
@@ -11,7 +10,14 @@ class StorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<StoreBloc>().add(LoadBooks());
     return Scaffold(
-      body: BlocBuilder<StoreBloc, StoreState>(
+      body: BlocConsumer<StoreBloc, StoreState>(
+        listener: (context, state) {
+          if (state.successMessage != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.successMessage!)),
+            );
+          }
+        },
         builder: (context, state) {
           if (state.isLoading) {
             return const Center(child: CircularProgressIndicator());

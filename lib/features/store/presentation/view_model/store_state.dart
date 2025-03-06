@@ -4,11 +4,13 @@ class StoreState extends Equatable {
   final List<BookEntity> books;
   final bool isLoading;
   final String? error;
+  final String? successMessage;
 
   const StoreState({
     required this.books,
     required this.isLoading,
     this.error,
+    this.successMessage,
   });
 
   factory StoreState.initial() {
@@ -22,14 +24,16 @@ class StoreState extends Equatable {
     List<BookEntity>? books,
     bool? isLoading,
     String? error,
+    String? successMessage,
   }) {
     return StoreState(
       books: books ?? this.books,
       isLoading: isLoading ?? this.isLoading,
-      error: error,
+      error: error ?? this.error,
+      successMessage: successMessage ?? this.successMessage,
     );
   }
 
   @override
-  List<Object?> get props => [books, isLoading, error];
+  List<Object?> get props => [books, isLoading, error, successMessage];
 }

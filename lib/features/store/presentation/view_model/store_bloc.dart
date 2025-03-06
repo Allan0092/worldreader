@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:worldreader/app/constants/api_endpoints.dart';
 import 'package:worldreader/app/shared_prefs/token_shared_prefs.dart';
-import 'package:worldreader/core/common/show_bottom_snack_bar.dart';
 import 'package:worldreader/features/store/domain/entity/book_entity.dart';
 import 'package:worldreader/features/store/domain/use_case/add_book_to_library.dart';
 import 'package:worldreader/features/store/domain/use_case/get_all_books_usecase.dart';
@@ -48,38 +47,50 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
 
   Future<void> _onAddToLibrary(
       AddToLibrary event, Emitter<StoreState> emit) async {
-    // emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, error: null, successMessage: null));
+
     try {
-      await _tokenSharedPrefs.getToken().then((value) {
-        value.fold((error) {
-          emit(state.copyWith(
-              isLoading: false, error: "error adding to library"));
-        }, (token) async {
-          if (token == "") throw Exception("No Authentication token found");
-          final payload = Jwt.parseJwt(token);
-          final userId = payload['id'] as String?;
-          if (userId == null) throw Exception("UserId not found in token");
-
-          final response = await _dio.post(
-            ApiEndpoints.addToLibrary,
-            data: {'userId': userId, 'bookId': event.bookId},
-            options: Options(
-              headers: {'Authorization': 'Bearer $token'},
-            ),
-          );
-
-          if (response.statusCode == 200) {
-            emit(state.copyWith(isLoading: false));
-            showBottomSnackBar(
-                context: event.context, message: "Book added success");
-          } else {
-            throw Exception("Failed to Add book ${response.statusMessage}");
+      // Get the token and handle the Either result
+      final tokenResult = await _tokenSharedPrefs.getToken();
+      late String token;
+      tokenResult.fold(
+        (error) =>
+            throw Exception('Failed to retrieve token: ${error.message}'),
+        (usertoken) {
+          if (usertoken.isEmpty) {
+            throw Exception('No authentication token found');
           }
-        });
-      });
+          token = usertoken;
+        },
+      );
+
+      // Decode the token to get userId
+      final payload = Jwt.parseJwt(token);
+      final userId = payload['id'] as String?;
+      if (userId == null) throw Exception('User ID not found in token');
+
+      // Make the API call to add the book to the library
+      final response = await _dio.post(
+        ApiEndpoints.addToLibrary, // Ensure this matches your endpoint name
+        data: {'userId': userId, 'bookId': event.bookId},
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        emit(state.copyWith(
+          isLoading: false,
+          successMessage: 'Book added to library successfully',
+        ));
+      } else {
+        throw Exception('Failed to add book: ${response.statusMessage}');
+      }
     } catch (e) {
-      emit(state.copyWith(isLoading: false, error: "error adding to library"));
+      emit(state.copyWith(
+        isLoading: false,
+        error: 'Failed to add book: ${e.toString()}',
+      ));
     }
-    // final result = await _addBookToLibraryUseCase()
   }
 }
