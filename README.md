@@ -1,16 +1,42 @@
-# worldreader
+# WorldReader
 
-A new Flutter project.
+[Demo Video](https://www.youtube.com.com/your-demo-video-link)
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **On Boarding Page:** Welcome users with a showcase of key features—Library, Store, and World Map.
+- **Store Page:** Browse and add books from a diverse global catalog, with verified author indicators.
+- **Library Page:** Curate and manage personal book collections, search, sort, and remove books.
+- **Map Page:** Explore a heatmap of book origins worldwide, showing where stories come from.
+- **Profile Management:** Update personal details, manage account settings, and upload books.
+- **Authentication:** Log in or register to access personalized features, with social login options.
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Flutter:**
+- **Backend:** Node.js/Express, MongoDB for data storage.
+- **Other:**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Screenshots
+
+## On Boarding Screen
+
+![Home Page Screenshot](./assets/screenshots/Screenshot_onBoarding.png)
+
+## Store Page
+
+![Store Page Screenshot](./assets/screenshots/Screenshot_store.png)
+
+## Library Page
+
+![Library Page Screenshot](./assets/screenshots/Screenshot_library.png)
+
+## Map Page
+
+## Login Page
+
+![Login Page Screenshot](./assets/screenshots/Screenshot_login.png)
+
+## Sign Up Page
+
+![Sign Page Screenshot](./assets/screenshots/Screenshot_register.png)
