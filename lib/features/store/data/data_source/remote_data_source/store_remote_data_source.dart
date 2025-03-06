@@ -14,10 +14,18 @@ class StoreRemoteDataSource implements IStoreDataSource {
   Future<List<BookEntity>> getStoreBooks() async {
     try {
       var response = await _dio.get(ApiEndpoints.getAllPublicBooks);
-
       if (response.statusCode == 200) {
-        GetAllBooksDTO getAllBooksDTO = GetAllBooksDTO.fromJson(response.data);
-        return StoreApiModel.toEntityList(getAllBooksDTO.data);
+        if (response.data is List) {
+          List<dynamic> bookList = response.data;
+          return bookList
+              .map((bookJson) => StoreApiModel.fromJson(bookJson).toEntity())
+              .toList();
+        } else {
+          GetAllBooksDTO allBooksDTO = GetAllBooksDTO.fromJson(response.data);
+          return StoreApiModel.toEntityList(allBooksDTO.data);
+        }
+        // GetAllBooksDTO allBooksDTO = GetAllBooksDTO.fromJson(response.data);
+        // return StoreApiModel.toEntityList(allBooksDTO.data);
       } else {
         throw Exception(response.statusMessage);
       }
