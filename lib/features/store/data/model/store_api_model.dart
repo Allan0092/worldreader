@@ -2,8 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:worldreader/features/store/domain/entity/book_entity.dart';
 
-part 'store_api_model.g.dart';
-
 @JsonSerializable()
 class StoreApiModel extends Equatable {
   @JsonKey(name: "_id")
@@ -22,10 +20,24 @@ class StoreApiModel extends Equatable {
     required this.verifiedStatus,
   });
 
-  factory StoreApiModel.fromJson(Map<String, dynamic> json) =>
-      _$StoreApiModelFromJson(json);
+  factory StoreApiModel.fromJson(Map<String, dynamic> json) {
+    return StoreApiModel(
+        id: json['_id'],
+        title: json['title'],
+        coverURL: json['coverURL'],
+        author: json['author'],
+        verifiedStatus: json['verifiedStatus']);
+  }
 
-  Map<String, dynamic> toJson() => _$StoreApiModelToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'title': title,
+      'coverURL': coverURL,
+      'author': author,
+      'verifiedStatus': verifiedStatus,
+    };
+  }
 
   BookEntity toEntity() {
     return BookEntity(
@@ -37,7 +49,7 @@ class StoreApiModel extends Equatable {
     );
   }
 
-  factory StoreApiModel.fromEntity(BookEntity entity) {
+  static StoreApiModel fromEntity(BookEntity entity) {
     return StoreApiModel(
         id: entity.bookId,
         title: entity.title,
