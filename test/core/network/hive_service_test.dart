@@ -41,7 +41,7 @@ void main() {
     test("login user", () async {
       AuthHiveModel loginUser =
           await hiveService.login("user1@email.com", "password1") ??
-              const AuthHiveModel.initial();
+              AuthHiveModel.initial();
 
       expect(loginUser, user);
       id = user.userId ?? "";

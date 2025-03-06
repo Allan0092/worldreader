@@ -13,7 +13,7 @@ void main() {
   setUp(() {
     repository = MockAuthRepository();
     usecase = RegisterUseCase(repository);
-    registerFallbackValue(const AuthEntity.empty());
+    registerFallbackValue(AuthEntity.empty());
   });
 
   const params = RegisterUserParams.empty();
