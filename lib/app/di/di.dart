@@ -14,6 +14,10 @@ import 'package:worldreader/features/auth/domain/use_case/upload_image_usecase.d
 import 'package:worldreader/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:worldreader/features/auth/presentation/view_model/register/register_bloc.dart';
 import 'package:worldreader/features/home/presentation/view_model/home_cubit.dart';
+import 'package:worldreader/features/library/data/data_source/remote_data_source/library_remote_data_source.dart';
+import 'package:worldreader/features/library/data/repository/library_remote_repository/library_remote_repository.dart';
+import 'package:worldreader/features/library/domain/use_case/get_user_library_usecase.dart';
+import 'package:worldreader/features/library/presentation/view_model/library_bloc.dart';
 import 'package:worldreader/features/on_boarding/presentation/view_model/on_boarding_screen_bloc.dart';
 import 'package:worldreader/features/splash/presentation/view_model/splash_cubit.dart';
 import 'package:worldreader/features/store/data/data_source/local_data_source/store_local_data_source.dart';
@@ -38,6 +42,7 @@ Future<void> initDependencies() async {
   await _initSplashScreenDependencies();
   await _initOnBoardingScreenDependencies();
   await _initStoreDependency();
+  await _initLibraryScreenDependencies();
 }
 
 _initApiService() {
@@ -155,6 +160,26 @@ _initStoreDependency() async {
       dio: getIt<Dio>(),
       tokenSharedPrefs: getIt<TokenSharedPrefs>(),
       addBookToLibraryUseCase: getIt<AddBookToLibraryUseCase>()));
+}
+
+_initLibraryScreenDependencies() async {
+  // ============================ Data Sources ============================
+  getIt.registerLazySingleton<LibraryRemoteDataSource>(
+      () => LibraryRemoteDataSource(getIt<Dio>()));
+
+  // ============================  Repositories ============================
+  getIt.registerLazySingleton<LibraryRemoteRepository>(
+      () => LibraryRemoteRepository(getIt<LibraryRemoteDataSource>()));
+
+  // ============================ UseCase ==================================
+  getIt.registerLazySingleton<GetUserLibraryUseCase>(() =>
+      GetUserLibraryUseCase(
+          repository:
+              LibraryRemoteRepository(getIt<LibraryRemoteDataSource>())));
+
+  // ============================ Bloc =====================================
+  getIt.registerFactory<LibraryBloc>(
+      () => LibraryBloc(getUserLibraryUseCase: getIt<GetUserLibraryUseCase>()));
 }
 
 _initSplashScreenDependencies() async {

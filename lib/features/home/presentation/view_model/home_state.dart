@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldreader/app/di/di.dart';
 import 'package:worldreader/features/library/presentation/view/library_page.dart';
+import 'package:worldreader/features/library/presentation/view_model/library_bloc.dart';
 import 'package:worldreader/features/map/presentation/view/explore_page.dart';
 import 'package:worldreader/features/store/presentation/view/store_page.dart';
 import 'package:worldreader/features/store/presentation/view_model/store_bloc.dart';
@@ -24,7 +25,10 @@ class HomeState extends Equatable {
       selectedIndex: 2,
       views: [
         const ExplorePage(),
-        const LibraryPage(),
+        // const LibraryPage(),
+        BlocProvider(
+            create: (context) => getIt<LibraryBloc>(),
+            child: const LibraryPage()),
         BlocProvider(
           create: (context) => getIt<StoreBloc>(),
           child: const StorePage(),
